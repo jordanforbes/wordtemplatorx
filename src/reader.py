@@ -2,44 +2,49 @@ import re
 import docx
 import os
 
+# gets all template files for easier entry
+def getTemplates():
+    dir_path = './templates'
+    tempDir = {}
+    pattern = r'^~\$.*'
+    i = 0
+    for filename in os.listdir(dir_path):
+        if not re.match(pattern, filename):
+          tempDir[f'{i}']=filename
+          i +=1;
+    # print(tempDir)
+    return tempDir
 
-def isDuplicate(fileName):
+
+
+# checks if the name you gave your file already exists
+def isUnique(fileName):
   newFile = f'{fileName}.docx'
   dir_path = "./outputs"
   files = []
-  # print(newFile)
-  # print(files)
+
   # add files in directory to array
   for filename in os.listdir(dir_path):
     files.append(filename)
-  # print(files)
-  # check if file exists in directory
+
   if newFile in files:
-    return True;
+    return False;
   else:
-    return False
+    return True
+
+
 
 def getVariables(file):
   # Load the Word document
-  doc = docx.Document(f'templates/{file}.docx')
+  doc = docx.Document(f'templates/{file}')
 
   paragraphs = doc.paragraphs
   context = {}
 
   pattern = r'{{\s*(.*?)\s*}}'
-  # def varCheck():
-  #   text = paragraph.text
-  #   variables = re.findall(pattern, text)
-  #   if variables:
-  #       varCheck()
-  #       context.update({f'{variables[0]}':''})
 
   for paragraph in paragraphs:
-      # print('runtest')
       for run in paragraph.runs:
-          # print(run.text)
-          # print('---')
-      # print(paragraph.text)
           text = run.text
           variables = re.findall(pattern, text)
           if variables:
