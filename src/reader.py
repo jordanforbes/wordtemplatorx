@@ -1,20 +1,47 @@
 import re
 import docx
+import os
 
-def reader():
+
+def isDuplicate(fileName):
+  newFile = f'{fileName}.docx'
+  dir_path = "./outputs"
+  files = []
+  # print(newFile)
+  # print(files)
+  # add files in directory to array
+  for filename in os.listdir(dir_path):
+    files.append(filename)
+  # print(files)
+  # check if file exists in directory
+  if newFile in files:
+    return True;
+  else:
+    return False
+
+def getVariables(file):
   # Load the Word document
-  doc = docx.Document('templates/pytemplate.docx')
+  doc = docx.Document(f'templates/{file}.docx')
 
-  # Get all the paragraphs in the document
   paragraphs = doc.paragraphs
   context = {}
 
   pattern = r'{{\s*(.*?)\s*}}'
+  # def varCheck():
+  #   text = paragraph.text
+  #   variables = re.findall(pattern, text)
+  #   if variables:
+  #       varCheck()
+  #       context.update({f'{variables[0]}':''})
 
-  # Loop through each paragraph and print the text
   for paragraph in paragraphs:
-      text = paragraph.text
-      variables = re.findall(pattern, text)
-      if variables:
-          context.update({f'{variables[0]}':''})
+      # print('runtest')
+      for run in paragraph.runs:
+          # print(run.text)
+          # print('---')
+      # print(paragraph.text)
+          text = run.text
+          variables = re.findall(pattern, text)
+          if variables:
+              context.update({f'{variables[0]}':''})
   return context
