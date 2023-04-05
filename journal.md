@@ -43,3 +43,5 @@ used coverletter to test the variable checker, checking each paragraph run
 used dictionary so now the template can be selected using numbers instead of typing in the entire name of the template file
 
 started creating Reader object in order to consolidate other methods and variables to make it easier for transfer to gui
+
+i'm trying to empty the output/template files on github but the gitignore isn't working
