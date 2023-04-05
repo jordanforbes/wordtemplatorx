@@ -1,0 +1,9 @@
+Babel==2.12.1
+dearpygui==1.9.0
+docxcompose==1.4.0
+docxtpl==0.16.6
+Jinja2==3.1.2
+lxml==4.9.2
+MarkupSafe==2.1.2
+python-docx==0.8.11
+six==1.16.0
